@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-10 mx-auto mt-5 row d-flex flex-row ">
+    <div class="col-md-6">
+      <img [src]="foodItem.imageURL" alt="" style="width: 480px; height: 360px;">
+    </div>
+    <div class="d-flex flex-column col-md-6 my-auto">
+      <h1>{{foodItem.name}}</h1><br>
+      <h3>Rs. {{foodItem.price}} for {{foodItem.quantity}} {{foodItem.unit}} </h3>
+      <form class="form">
+        <div class="form-group">
+          <label for="foodItemQuantity" class="form-label">Enter the quantity of the food</label>
+          <input type="number" name="foodItemQuantity" id="" [value]="foodItem.quantity" class="form-control" (change)="onKey($event)">
+          <label for="price" class="form-label">{{price}}</label>
+        </div>
+        <button class="btn btn-success">Add to Cart</button>
+      </form>
+    </div>
+  </div>
+</div>

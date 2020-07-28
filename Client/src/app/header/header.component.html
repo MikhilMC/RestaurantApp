@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <a class="navbar-brand" href="#">Foodies</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse show" id="navbarSupportedContent" [ngClass]="{ 'show': navbarOpen }">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/todays-menu" *ngif="hasAuth()" routerLinkActive="active">MENU</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/discounts-today" *ngif="hasAuth()" routerLinkActive="active">DISCOUNTS TODAY</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/todays-special" *ngif="hasAuth()" routerLinkActive="active">TODAY'S SPECIAL</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/veg-items" *ngif="hasAuth()" routerLinkActive="active">VEG ITEMS</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/cart" *ngif="hasAuth()" routerLinkActive="active">CART</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/login" *ngif="!hasAuth()" routerLinkActive="active">LOGIN</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/signup" *ngif="!hasAuth()" routerLinkActive="active">SIGNUP</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" style="cursor: pointer;" *ngif="hasAuth()" (click)="logoutUser()">LOGOUT</a>
+      </li>
+    </ul>
+  </div>
+</nav>

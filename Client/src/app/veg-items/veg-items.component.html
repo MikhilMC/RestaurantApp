@@ -1,0 +1,15 @@
+<div class="row mt-5">
+  <div class="col-md-4 mb-3" *ngFor="let foodItem of vegItems">
+    <div class="card text-center">
+      <img [src]="foodItem.imageURL" alt="" class="mx-auto my-4" style="width: 80%;height: 10rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{foodItem.name}}</h5>
+        <p class="card-text">Rs. {{foodItem.price}} for {{foodItem.quantity}} {{foodItem.unit}} </p>
+        <a [routerLink]="['/food-item', foodItem._id]" class="btn btn-primary">Check This Item</a>
+      </div>
+      <!-- <div class="card-footer text-muted">
+        {{event.date | date:'shortDate'}}
+      </div> -->
+    </div>
+  </div>
+</div>
