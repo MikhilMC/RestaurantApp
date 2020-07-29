@@ -15,7 +15,8 @@ mongoose.connect(mongoURI,
   {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   },
   (err) => {
     if (err) {
@@ -173,16 +174,21 @@ router.get("/cart-item/:id", verifyToken, (req, res) => {
 router.patch("/cart-item/:id", verifyToken, (req, res) => {
   let id = new ObjectId(req.params.id);
   let newItem = {};
-  newItem.quantity = req.body.quantity;
-  newItem.price = req.body.price;
-  CartData.findByIdAndUpdate(id, newItem, (err, newCartItem) => {
-    if (err) {
-      res.status(401).send(err);
-    } else {
-      console.log(newCartItem);
-      res.status(200).send(newCartItem);
-    }
-  });
+  if(req.body.quantity !== 0) {
+    newItem.quantity = req.body.quantity;
+    newItem.price = req.body.price;
+    console.log(id, newItem);
+    CartData.findByIdAndUpdate(id, newItem, (err, newCartItem) => {
+      if (err) {
+        res.status(401).send(err);
+      } else {
+        console.log(newCartItem);
+        res.status(200).send(newCartItem);
+      }
+    });
+  } else {
+    res.send("Noting updated")
+  }
 });
 
 router.delete("/cart-item/:id", verifyToken, (req, res) => {

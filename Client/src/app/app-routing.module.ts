@@ -10,6 +10,7 @@ import { SignupComponent } from './signup/signup.component';
 import { SingleItemComponent } from './single-item/single-item.component';
 import { DummyComponent } from './dummy/dummy.component';
 import { AuthGuard } from "./auth.guard";
+import { EditCartComponent } from './edit-cart/edit-cart.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,12 @@ const routes: Routes = [
   {
     path: "dummy",
     component: DummyComponent
+  },
+  {
+    path: "cart-item/:id",
+    component: EditCartComponent,
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   }
 ];
 
