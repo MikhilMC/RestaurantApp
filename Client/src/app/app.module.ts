@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ import { DummyComponent } from './dummy/dummy.component';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from "./token-interceptor.service";
+import { EditCartComponent } from './edit-cart/edit-cart.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +34,15 @@ import { TokenInterceptorService } from "./token-interceptor.service";
     CartComponent,
     LoginComponent,
     SignupComponent,
-    DummyComponent
+    DummyComponent,
+    EditCartComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   providers: [
     FoodService,

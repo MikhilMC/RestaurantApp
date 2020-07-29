@@ -6,13 +6,13 @@
     <div class="d-flex flex-column col-md-6 my-auto">
       <h1>{{foodItem.name}}</h1><br>
       <h3>Rs. {{foodItem.price}} for {{foodItem.quantity}} {{foodItem.unit}} </h3>
-      <form class="form">
+      <form method="POST" class="form" (ngSubmit)="addToCart()">
         <div class="form-group">
           <label for="foodItemQuantity" class="form-label">Enter the quantity of the food</label>
-          <input type="number" name="foodItemQuantity" id="" [value]="foodItem.quantity" class="form-control" (change)="onKey($event)">
+          <input type="number" name="foodItemQuantity" id="" [value]="foodItem.quantity" class="form-control" (change)="onKey($event)" [(ngModel)]="quantity">
           <label for="price" class="form-label">{{price}}</label>
         </div>
-        <button class="btn btn-success">Add to Cart</button>
+        <button type="submit" class="btn btn-success">Add to Cart</button>
       </form>
     </div>
   </div>

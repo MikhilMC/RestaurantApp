@@ -8,9 +8,19 @@ import { AuthService } from '../auth.service';
 })
 export class HeaderComponent implements OnInit {
   navbarOpen = false;
+  userId: String;
   constructor(private _auth: AuthService) { }
 
   ngOnInit(): void {
+    this._auth.getUserId()
+    .subscribe(
+      res => {
+        this.userId = res['userId']
+      },
+      err => {
+        console.log(err);        
+      }
+    )
   }
 
   toggleNavbar() {

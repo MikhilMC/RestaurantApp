@@ -1,1 +1,21 @@
-<p>cart works!</p>
+<div class="row">
+  <h1 class="col-md-4 mx-auto my-2 text-center font-weight-bold">{{title}}</h1>
+  <h5 class="col-md-10 mx-auto my-2 text-center font-weight-bold" *ngIf="hasAny">Total cost : Rs.{{totalCost}}</h5>
+  <h5 class="col-md-10 mx-auto my-2 text-center font-weight-bold" *ngIf="!hasAny">Your cart is empty</h5>
+  <div class="col-md-10 mx-auto" *ngFor="let cartItem of cartItems">
+    <div class="card text-center my-2">
+      <div class="card-body">
+        <h5 class="card-title">{{cartItem.name}}</h5>
+        <p class="card-text text-monospace">Rs. {{cartItem.basicPrice}} for {{cartItem.basicQuantity}} {{cartItem.basicUnit}} </p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Quantity : {{cartItem.quantity}}</li>
+        <li class="list-group-item">Price : {{cartItem.price}}</li>
+      </ul>
+      <div class="card-body text-center">
+        <a href="#" class="card-link">Edit</a>
+        <a href="#" class="card-link">Delete</a>
+      </div>
+    </div>    
+  </div>
+</div>

@@ -7,31 +7,31 @@
   <div class="collapse navbar-collapse show" id="navbarSupportedContent" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/todays-menu" *ngif="hasAuth()" routerLinkActive="active">MENU</a>
+        <a class="nav-link" routerLink="/todays-menu" *ngIf="hasAuth()" routerLinkActive="active">MENU</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/discounts-today" *ngif="hasAuth()" routerLinkActive="active">DISCOUNTS TODAY</a>
+        <a class="nav-link" routerLink="/discounts-today" *ngIf="hasAuth()" routerLinkActive="active">DISCOUNTS TODAY</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/todays-special" *ngif="hasAuth()" routerLinkActive="active">TODAY'S SPECIAL</a>
+        <a class="nav-link" routerLink="/todays-special" *ngIf="hasAuth()" routerLinkActive="active">TODAY'S SPECIAL</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/veg-items" *ngif="hasAuth()" routerLinkActive="active">VEG ITEMS</a>
+        <a class="nav-link" routerLink="/veg-items" *ngIf="hasAuth()" routerLinkActive="active">VEG ITEMS</a>
       </li>
     </ul>
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/cart" *ngif="hasAuth()" routerLinkActive="active">CART</a>
+        <a class="nav-link" [routerLink]="['/cart', userId]" *ngIf="hasAuth()" routerLinkActive="active">CART</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/login" *ngif="!hasAuth()" routerLinkActive="active">LOGIN</a>
+        <a class="nav-link" routerLink="/login" *ngIf="!hasAuth()" routerLinkActive="active">LOGIN</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/signup" *ngif="!hasAuth()" routerLinkActive="active">SIGNUP</a>
+        <a class="nav-link" routerLink="/signup" *ngIf="!hasAuth()" routerLinkActive="active">SIGNUP</a>
       </li>
       
       <li class="nav-item">
-        <a class="nav-link" style="cursor: pointer;" *ngif="hasAuth()" (click)="logoutUser()">LOGOUT</a>
+        <a class="nav-link" style="cursor: pointer;" *ngIf="hasAuth()" (click)="logoutUser()">LOGOUT</a>
       </li>
     </ul>
   </div>

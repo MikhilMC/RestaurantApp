@@ -33,8 +33,9 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: "cart",
+    path: "cart/:id",
     component: CartComponent,
+    pathMatch: "full",
     canActivate: [AuthGuard]
   },
   {
@@ -48,6 +49,7 @@ const routes: Routes = [
   {
     path: "food-item/:id",
     component: SingleItemComponent,
+    pathMatch: "full",
     canActivate: [AuthGuard]
   },
   {
