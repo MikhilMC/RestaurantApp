@@ -45,9 +45,9 @@ export class EditCartComponent implements OnInit {
 
   editCartItem() {
     if (this.oldCartItem.hasDiscount) {
-      this.newCartItem.price = (this.newCartItem.quantity / this.oldCartItem.quantity) * this.oldCartItem.price * (this.oldCartItem.discountPercentage/100);
+      this.newCartItem.price = Math.round((this.newCartItem.quantity / this.oldCartItem.quantity) * this.oldCartItem.price * (this.oldCartItem.discountPercentage/100));
     } else {
-      this.newCartItem.price = (this.newCartItem.quantity / this.oldCartItem.quantity) * this.oldCartItem.price;
+      this.newCartItem.price = Math.round((this.newCartItem.quantity / this.oldCartItem.quantity) * this.oldCartItem.price);
     }
     if (this.newCartItem.quantity === 0) {
       this._router.navigate(['/cart', this.oldCartItem.userId]);

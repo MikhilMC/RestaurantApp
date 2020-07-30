@@ -21,6 +21,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from "./token-interceptor.service";
 import { EditCartComponent } from './edit-cart/edit-cart.component';
+import { CheckOutComponent } from './check-out/check-out.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { EditCartComponent } from './edit-cart/edit-cart.component';
     LoginComponent,
     SignupComponent,
     DummyComponent,
-    EditCartComponent
+    EditCartComponent,
+    CheckOutComponent
   ],
   imports: [
     BrowserModule,

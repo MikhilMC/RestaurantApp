@@ -6,7 +6,9 @@ const ObjectId = require('mongoose').Types.ObjectId
 
 const MenuData = require('../models/MenuData');
 const UserData = require('../models/UserData');
-const CartData = require('../models/CartData')
+const CartData = require('../models/CartData');
+const TimeTable = require('../models/TimeTable');
+const OrderData = require('../models/OrderData');
 
 const router = express.Router();
 const mongoURI = "mongodb://127.0.0.1:27017/Restaurant";
@@ -111,6 +113,97 @@ router.get("/cart/:id", verifyToken, (req, res) => {
   });
 });
 
+router.delete("/cart/:id", verifyToken, (req, res) => {
+  let id = new ObjectId(req.params.id);
+  CartData.find({_id: id}, (err, cartItems) => {
+    if (err) {
+      res.status(401).send(err)
+    } else {
+      CartData.deleteMany({_id: id}, (error, deleteData) => {
+        if (error) {
+          res.status(401).send(error);
+        } else {
+          console.log(deleteData);
+          res.status(200).send(cartItems);
+        }
+      });
+    }
+  });
+});
+
+router.get("/get-timetable", (req, res) => {
+  TimeTable.find({}, (err, timeTable) => {
+    if (err) {
+      res.status(401).send(err)
+    } else {
+      let date = new Date(Date.now());
+      let hours = date.getHours();
+      let minutes = date.getMinutes();
+      // console.log(hours, minutes);
+      timeTable.forEach((timeSlot) => {
+        if (timeSlot.orders.length === 15) {
+          TimeTable.findOneAndUpdate({_id :timeSlot._id}, {hasClosed: true}, (err, tt) => {
+            if (err) {
+              res.status(401).send(err);
+            } else {
+              // res.status(200).send(tt);
+            }
+          })
+        } else {
+          if (timeSlot.start.hour <= hours) {
+            if (hours <= timeSlot.end.hour) {
+              if (timeSlot.start.minute <= minutes) {
+                if (minutes <= timeSlot.end.minute) {
+                  TimeTable.findOneAndUpdate({_id :timeSlot._id}, {hasClosed: false}, (err, tt) => {
+                    if (err) {
+                      res.status(401).send(err);
+                    } else {
+                      // res.status(200).send(tt);
+                    }
+                  })
+                } else {
+                  TimeTable.findOneAndUpdate({_id :timeSlot._id}, {hasClosed: true}, (err, tt) => {
+                    if (err) {
+                      res.status(401).send(err);
+                    } else {
+                      // res.status(200).send(tt);
+                    }
+                  })
+                }
+              } else {
+                TimeTable.findOneAndUpdate({_id :timeSlot._id}, {hasClosed: false}, (err, tt) => {
+                  if (err) {
+                    res.status(401).send(err);
+                  } else {
+                    // res.status(200).send(tt);
+                  }
+                })
+              }
+            } else {
+              TimeTable.findOneAndUpdate({_id :timeSlot._id}, {hasClosed: true}, (err, tt) => {
+                if (err) {
+                  res.status(401).send(err);
+                } else {
+                  // res.status(200).send(tt);
+                }
+              })
+            }
+          } else {
+            TimeTable.findOneAndUpdate({_id :timeSlot._id}, {hasClosed: false}, (err, tt) => {
+              if (err) {
+                res.status(401).send(err);
+              } else {
+                // res.status(200).send(tt);
+              }
+            })
+          }
+        }
+      })
+      res.status(200).send(timeTable);
+    }
+  });
+});
+
 router.post("/add-to-cart", verifyToken, (req, res) => {
   console.log(req.body);
   let cartData = {};
@@ -199,6 +292,82 @@ router.delete("/cart-item/:id", verifyToken, (req, res) => {
     } else {
       console.log(oldCartItem);
       res.status(200).send(oldCartItem);
+    }
+  });
+});
+
+router.post("/checkout/:id", (req, res) => {
+  let userId = new ObjectId(req.params.id);
+  let timeFrameId = new ObjectId(req.body.timeFrameId);
+  CartData.find({userId: userId}, (err, cartItems) => {
+    if (err) {
+      res.status(401).send(err)
+    } else {
+      let orderItems = [];
+      let totalCost = 0;
+      cartItems.forEach((cartItem) => {
+        let orderItem = {};
+        orderItem.name = cartItem.name;
+        orderItem.quantity = cartItem.quantity;
+        orderItem.price = cartItem.price;
+        totalCost += cartItem.price;
+        orderItems.push(orderItem);
+      });
+      // console.log(orderItems);
+      // console.log(totalCost);
+      // console.log(userId, timeFrameId);
+      let orderData = {
+        userId: userId,
+        items: orderItems,
+        totalCash: totalCost,
+        timeFrame: timeFrameId
+      };
+      let order = new OrderData(orderData);
+      order.save((error, orderPlaced) => {
+        if (error) {
+          res.status(401).send(error);
+        } else {
+          orderPlaced.items.forEach((product) => {
+            MenuData.findOne({name: product.name}, (err2, food) => {
+              if (err2) {
+                res.status(401).send(err2)
+              } else {
+                let newSoldQuantity = food.soldQuantity + product.quantity;
+                MenuData.findOneAndUpdate({name: food.name}, {soldQuantity: newSoldQuantity}, (err3, newFood) => {
+                  if (err3) {
+                    res.status(401).send(err2)                    
+                  } else {
+                    console.log(newFood);
+                  }
+                });
+              }
+            });
+            TimeTable.findById(orderPlaced.timeFrame, (err4, timeFrame) => {
+              if (err4) {
+                res.status(401).send(err4)
+              } else {
+                let ordersInTimeFrame = timeFrame.orders
+                ordersInTimeFrame.push(product._id);
+                TimeTable.findByIdAndUpdate(orderPlaced.timeFrame, ordersInTimeFrame, (err5, timeFrame2) => {
+                  if (err5) {
+                    res.status(401).send(err5)
+                  } else {
+                    console.log(timeFrame2);
+                  }
+                })
+              }
+            });
+            CartData.deleteMany({userId: orderPlaced.userId}, (err, data) => {
+              if (err) {
+                res.status(401).send(err)
+              } else {
+                console.log(data);
+              }
+            })
+          });
+          res.status(200).send(orderPlaced);
+        }
+      })
     }
   });
 });

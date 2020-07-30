@@ -11,6 +11,7 @@ import { SingleItemComponent } from './single-item/single-item.component';
 import { DummyComponent } from './dummy/dummy.component';
 import { AuthGuard } from "./auth.guard";
 import { EditCartComponent } from './edit-cart/edit-cart.component';
+import { CheckOutComponent } from './check-out/check-out.component';
 
 const routes: Routes = [
   {
@@ -60,6 +61,12 @@ const routes: Routes = [
   {
     path: "cart-item/:id",
     component: EditCartComponent,
+    pathMatch: "full",
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "check-out/:id",
+    component: CheckOutComponent,
     pathMatch: "full",
     canActivate: [AuthGuard]
   }

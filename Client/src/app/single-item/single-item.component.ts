@@ -70,9 +70,9 @@ export class SingleItemComponent implements OnInit {
         this.cartItem.hasDiscount = this.foodItem.hasDiscount;
         this.cartItem.discountPercentage = this.foodItem.discountPercentage
         if (this.foodItem.hasDiscount) {
-          this.cartItem.price = (this.quantity / this.foodItem.quantity) * this.foodItem.price * (this.foodItem.discountPercentage/100);
+          this.cartItem.price = Math.round((this.quantity / this.foodItem.quantity) * this.foodItem.price * (this.foodItem.discountPercentage/100));
         } else {
-          this.cartItem.price = (this.quantity / this.foodItem.quantity) * this.foodItem.price;
+          this.cartItem.price = Math.round((this.quantity / this.foodItem.quantity) * this.foodItem.price);
         }
         this._cart.addToCart(this.cartItem)
         .subscribe(

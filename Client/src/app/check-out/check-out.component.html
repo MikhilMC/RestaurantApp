@@ -1,0 +1,66 @@
+<div class="py-5">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card rounded-0">
+        <div class="card-header text-center">
+          <h1>{{title}}</h1>
+        </div>
+        <div class="card-body">
+          <form method="post" (ngSubmit)="checkOut()">
+            <div class="form-group">
+              <label for="timeFrame">Select Time Frame</label>
+              <select class="form-control" id="timeFrame" name="timeFrame" [(ngModel)]="timeFrame">
+                <option *ngFor="let period of timeTable; let i=index" [value]="period._id">{{time[i]}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-success float-right">CHECK OUT</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="py-5">
+  <div class="row">
+    <div class="col-md-10 mx-auto">
+      <div class="card rounded-0">
+        <div class="card-header text-center">
+          <h3>{{subTitle}}</h3>
+        </div>
+        <div class="card-body">
+          <table class="table table-sm table-bordered">
+            <thead class="thead-dark">
+              <th>Item Name</th>
+              <th>Basic Quantity</th>
+              <th>Basic Unit</th>
+              <th>Basic Price (Rs.)</th>
+              <th>Discount Percentage (%)</th>
+              <th>Quantity</th>
+              <th>Price (Rs.)</th>
+            </thead>
+            <tbody *ngFor="let cartItem of cartItems; let i=index">
+              <tr>
+                <td>{{cartItem.name}}</td>
+                <td>{{cartItem.basicQuantity}}</td>
+                <td>{{cartItem.basicUnit}}</td>
+                <td>{{cartItem.basicPrice}}</td>
+                <td>{{discount[i]}}</td>
+                <td>{{cartItem.quantity}}</td>
+                <td>{{cartItem.price}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="bg-dark text-light">
+                <td colspan="6">Total Cost</td>
+                <td>{{totalCost}}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

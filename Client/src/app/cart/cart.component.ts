@@ -17,6 +17,7 @@ export class CartComponent implements OnInit {
   hasAny: boolean;
   totalCost: number = 0;
   units = new Array();
+  discount = new Array();
   constructor(
     private actRoute: ActivatedRoute,
     private _cart: CartService,
@@ -48,8 +49,9 @@ export class CartComponent implements OnInit {
             } else {
               this.units.push("grams");
             }
+            this.discount.push(Math.floor(100 - cartItem.discountPercentage));
             this.totalCost += cartItem.price;
-          })
+          })          
         }
       },
       err => {
@@ -67,10 +69,8 @@ export class CartComponent implements OnInit {
     .subscribe(
       res => {
         // console.log(res);
-        this._router.navigateByUrl('/dummy', {skipLocationChange: true})
-        .then(() => {
-          this._router.navigate(['/cart', this.userId]);
-        });
+        alert('Food item deleted from the cart');
+        this.reloadCart();
       },
       err => {
         if (err instanceof HttpErrorResponse) {
@@ -80,5 +80,32 @@ export class CartComponent implements OnInit {
         }
       }
     );
+  }
+
+  clearCart() {
+    this._cart.clearCart(this.userId)
+    .subscribe(
+      res => {
+        console.log(res)
+        // this._router.navigate(['/todays-menu']);
+      },
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 401) {
+            this._auth.logoutUser();
+          }
+        }
+      }
+    );
+    setTimeout(() => {
+      this.reloadCart();
+    }, 500);
+  }
+
+  reloadCart() {
+    this._router.navigateByUrl('/dummy', {skipLocationChange: true})
+    .then(() => {
+      this._router.navigate(['/cart', this.userId]);
+    });
   }
 }

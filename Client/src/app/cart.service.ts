@@ -6,8 +6,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CartService {
   private getCartUrl = "http://localhost:5000/api/cart/";
-  private addToCartUrl = "http://localhost:5000/api/add-to-cart"
+  private addToCartUrl = "http://localhost:5000/api/add-to-cart";
   private getCartItemUrl = "http://localhost:5000/api/cart-item/";
+  private getTimeTableUrl = "http://localhost:5000/api/get-timetable";
+  private checkOutUrl = "http://localhost:5000/api/checkout/";
+
   constructor(private http: HttpClient) { }
 
   getCart(id) {
@@ -28,5 +31,17 @@ export class CartService {
 
   deleteCartItem(id) {
     return this.http.delete(this.getCartItemUrl + id);
+  }
+
+  clearCart(id) {
+    return this.http.delete(this.getCartUrl + id);
+  }
+
+  getTimeTable() {
+    return this.http.get(this.getTimeTableUrl);
+  }
+
+  checkOut(id, timeFrameId) {
+    return this.http.post(this.checkOutUrl + id, {timeFrameId});
   }
 }
