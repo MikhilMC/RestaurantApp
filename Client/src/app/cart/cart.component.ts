@@ -32,26 +32,11 @@ export class CartComponent implements OnInit {
     });
     this._cart.getCart(this.userId)
     .subscribe(
-      res => {
+      async res => {
         if (res['msg'] !== undefined) {
           this.hasAny = false
         } else {
-          this.hasAny = true
-          this.cartItems = JSON.parse(JSON.stringify(res));
-          // console.log(this.cartItems);
-          this.cartItems.forEach(cartItem => {
-            if (cartItem.basicUnit === 'number') {
-              if (cartItem.quantity > cartItem.basicQuantity) {
-                this.units.push("no's.");
-              } else {
-                this.units.push("no.");
-              }
-            } else {
-              this.units.push("grams");
-            }
-            this.discount.push(Math.floor(100 - cartItem.discountPercentage));
-            this.totalCost += cartItem.price;
-          })          
+          await this.loadCart(res)
         }
       },
       err => {
@@ -64,30 +49,33 @@ export class CartComponent implements OnInit {
     )
   }
 
+  loadCart(res) {
+    this.hasAny = true
+    this.cartItems = JSON.parse(JSON.stringify(res));
+    // console.log(this.cartItems);
+    this.cartItems.forEach(cartItem => {
+      if (cartItem.basicUnit === 'number') {
+        if (cartItem.quantity > cartItem.basicQuantity) {
+          this.units.push("no's.");
+        } else {
+          this.units.push("no.");
+        }
+      } else {
+        this.units.push("grams");
+      }
+      this.discount.push(Math.floor(100 - cartItem.discountPercentage));
+      this.totalCost += cartItem.price;
+    })
+  }
+
   deleteCartItem(id) {
+    console.log(id);
     this._cart.deleteCartItem(id)
     .subscribe(
       res => {
-        // console.log(res);
+        console.log(res);
         alert('Food item deleted from the cart');
-        this.reloadCart();
-      },
-      err => {
-        if (err instanceof HttpErrorResponse) {
-          if (err.status === 401) {
-            this._auth.logoutUser();
-          }
-        }
-      }
-    );
-  }
-
-  clearCart() {
-    this._cart.clearCart(this.userId)
-    .subscribe(
-      res => {
-        console.log(res)
-        // this._router.navigate(['/todays-menu']);
+        
       },
       err => {
         if (err instanceof HttpErrorResponse) {
@@ -99,7 +87,25 @@ export class CartComponent implements OnInit {
     );
     setTimeout(() => {
       this.reloadCart();
-    }, 500);
+    }, 1000);
+  }
+
+  clearCart(id) {
+    console.log(id)
+    this._cart.clearCart(id)
+    .subscribe(
+      res => {
+        console.log(res);
+        this.reloadCart();
+      },
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 401) {
+            this._auth.logoutUser();
+          }
+        }
+      }
+    )
   }
 
   reloadCart() {

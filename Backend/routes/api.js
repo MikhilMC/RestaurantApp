@@ -115,20 +115,21 @@ router.get("/cart/:id", verifyToken, (req, res) => {
 
 router.delete("/cart/:id", verifyToken, (req, res) => {
   let id = new ObjectId(req.params.id);
-  CartData.find({_id: id}, (err, cartItems) => {
-    if (err) {
+  console.log(id)
+  CartData.find({userId: id}, (err, items) => {
+    if(err) {
       res.status(401).send(err)
     } else {
-      CartData.deleteMany({_id: id}, (error, deleteData) => {
-        if (error) {
-          res.status(401).send(error);
+      CartData.deleteMany({userId:id}, (err2, data) => {
+        if (err2) {
+          res.status(401).send(err)
         } else {
-          console.log(deleteData);
-          res.status(200).send(cartItems);
+          console.log(data);
+          res.status(200).send(items)
         }
-      });
+      })
     }
-  });
+  })
 });
 
 router.get("/get-timetable", (req, res) => {
@@ -298,78 +299,60 @@ router.delete("/cart-item/:id", verifyToken, (req, res) => {
 
 router.post("/checkout/:id", (req, res) => {
   let userId = new ObjectId(req.params.id);
-  let timeFrameId = new ObjectId(req.body.timeFrameId);
-  CartData.find({userId: userId}, (err, cartItems) => {
+  let timeFrame = new ObjectId(req.body.timeFrameId);
+  let items = req.body.cartItems;
+  let totalCash = 0;
+  items.forEach((item) => {
+    totalCash += item.price
+  });
+  console.log(userId, timeFrame, items, totalCash)
+  let orderData = {
+    userId,
+    items,
+    totalCash,
+    timeFrame
+  }
+  let order = new OrderData(orderData);
+  order.save((err, orderDetails) => {
     if (err) {
       res.status(401).send(err)
     } else {
-      let orderItems = [];
-      let totalCost = 0;
-      cartItems.forEach((cartItem) => {
-        let orderItem = {};
-        orderItem.name = cartItem.name;
-        orderItem.quantity = cartItem.quantity;
-        orderItem.price = cartItem.price;
-        totalCost += cartItem.price;
-        orderItems.push(orderItem);
-      });
-      // console.log(orderItems);
-      // console.log(totalCost);
-      // console.log(userId, timeFrameId);
-      let orderData = {
-        userId: userId,
-        items: orderItems,
-        totalCash: totalCost,
-        timeFrame: timeFrameId
-      };
-      let order = new OrderData(orderData);
-      order.save((error, orderPlaced) => {
-        if (error) {
-          res.status(401).send(error);
+      CartData.deleteMany({userId:orderDetails.userId}, (err, data) => {
+        if (err) {
+          res.status(401).send(err)
         } else {
-          orderPlaced.items.forEach((product) => {
-            MenuData.findOne({name: product.name}, (err2, food) => {
-              if (err2) {
-                res.status(401).send(err2)
-              } else {
-                let newSoldQuantity = food.soldQuantity + product.quantity;
-                MenuData.findOneAndUpdate({name: food.name}, {soldQuantity: newSoldQuantity}, (err3, newFood) => {
-                  if (err3) {
-                    res.status(401).send(err2)                    
-                  } else {
-                    console.log(newFood);
-                  }
-                });
-              }
-            });
-            TimeTable.findById(orderPlaced.timeFrame, (err4, timeFrame) => {
-              if (err4) {
-                res.status(401).send(err4)
-              } else {
-                let ordersInTimeFrame = timeFrame.orders
-                ordersInTimeFrame.push(product._id);
-                TimeTable.findByIdAndUpdate(orderPlaced.timeFrame, ordersInTimeFrame, (err5, timeFrame2) => {
-                  if (err5) {
-                    res.status(401).send(err5)
-                  } else {
-                    console.log(timeFrame2);
-                  }
-                })
-              }
-            });
-            CartData.deleteMany({userId: orderPlaced.userId}, (err, data) => {
-              if (err) {
-                res.status(401).send(err)
-              } else {
-                console.log(data);
-              }
-            })
-          });
-          res.status(200).send(orderPlaced);
+          console.log(data);
         }
       })
+      TimeTable.findByIdAndUpdate(orderDetails.timeFrame, {$push : {orders: orderDetails._id}}, (err, data)=> {
+        if (err) {
+          res.status(401).send(err)
+        } else {
+          console.log(data);
+        }
+      });
+      orderDetails.items.forEach((item)=>{
+        MenuData.findOne({name: item.name}, (err, menuItem) => {
+          if (err) {
+            res.status(401).send(err)
+          } else {
+            let newSoldQunatity = menuItem.soldQunatity + item.quantity
+            MenuData.findOneAndUpdate({name: item.name}, 
+              {soldQunatity: newSoldQunatity}, 
+              (err2, item1) => {
+                if (err2) {
+                  res.status(401).send(err2)
+                } else {
+                  console.log(item1);
+                }
+              }
+            );
+          }
+        });
+      });
+      res.status(200).send(orderDetails);
     }
-  });
+  })
 });
 
 router.get("/todays-menu", verifyToken, (req, res) => {

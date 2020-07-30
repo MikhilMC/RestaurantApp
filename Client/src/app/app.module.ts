@@ -22,6 +22,7 @@ import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from "./token-interceptor.service";
 import { EditCartComponent } from './edit-cart/edit-cart.component';
 import { CheckOutComponent } from './check-out/check-out.component';
+import { ClearCartComponent } from './clear-cart/clear-cart.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CheckOutComponent } from './check-out/check-out.component';
     SignupComponent,
     DummyComponent,
     EditCartComponent,
-    CheckOutComponent
+    CheckOutComponent,
+    ClearCartComponent
   ],
   imports: [
     BrowserModule,

@@ -17,7 +17,7 @@
         <h5 class="font-weight-bold" *ngIf="!hasAny">Your cart is empty</h5>
         <h5 class="font-weight-bold" *ngIf="hasAny">Total cost : Rs. {{totalCost}}</h5>
         <a [routerLink]="['/check-out', userId]" class="btn btn-success float-center mr-2 ml-2" *ngIf="hasAny">CHECK OUT</a>
-        <a [routerLink]="" class="btn btn-danger float-center mr-2 ml-2 card-link" *ngIf="hasAny" (click)="clearCart()">CLEAR CART</a>
+        <a [routerLink]="" class="btn btn-danger float-center mr-2 ml-2 card-link" *ngIf="hasAny" (click)="clearCart(userId)">CLEAR CART</a>
       </div>
     </div>
   </div>

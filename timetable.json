@@ -1,0 +1,225 @@
+[{
+  "_id": {
+    "$oid": "5f213d903f38022d6e24b205"
+  },
+  "start": {
+    "hour": 17,
+    "minute": 0
+  },
+  "end": {
+    "hour": 17,
+    "minute": 14
+  },
+  "orders": [],
+  "hasClosed": true
+},{
+  "_id": {
+    "$oid": "5f213e88308e0a11cd5f026c"
+  },
+  "start": {
+    "hour": 17,
+    "minute": 15
+  },
+  "end": {
+    "hour": 17,
+    "minute": 29
+  },
+  "orders": [],
+  "hasClosed": true
+},{
+  "_id": {
+    "$oid": "5f213f0d308e0a11cd5f026d"
+  },
+  "start": {
+    "hour": 17,
+    "minute": 30
+  },
+  "end": {
+    "hour": 17,
+    "minute": 44
+  },
+  "orders": [],
+  "hasClosed": true
+},{
+  "_id": {
+    "$oid": "5f213f29308e0a11cd5f026e"
+  },
+  "start": {
+    "hour": 17,
+    "minute": 45
+  },
+  "end": {
+    "hour": 17,
+    "minute": 59
+  },
+  "orders": [],
+  "hasClosed": false
+},{
+  "_id": {
+    "$oid": "5f213f64308e0a11cd5f026f"
+  },
+  "start": {
+    "hour": 18,
+    "minute": 0
+  },
+  "end": {
+    "hour": 18,
+    "minute": 14
+  },
+  "orders": [],
+  "hasClosed": false
+},{
+  "_id": {
+    "$oid": "5f213f75308e0a11cd5f0270"
+  },
+  "start": {
+    "hour": 18,
+    "minute": 15
+  },
+  "end": {
+    "hour": 18,
+    "minute": 29
+  },
+  "orders": [],
+  "hasClosed": false
+},{
+  "_id": {
+    "$oid": "5f213f88308e0a11cd5f0271"
+  },
+  "start": {
+    "hour": 18,
+    "minute": 30
+  },
+  "end": {
+    "hour": 18,
+    "minute": 44
+  },
+  "orders": [],
+  "hasClosed": false
+},{
+  "_id": {
+    "$oid": "5f213fcb308e0a11cd5f0272"
+  },
+  "start": {
+    "hour": 18,
+    "minute": 45
+  },
+  "end": {
+    "hour": 18,
+    "minute": 59
+  },
+  "orders": [],
+  "hasClosed": false
+},{
+  "_id": {
+    "$oid": "5f213fe6308e0a11cd5f0273"
+  },
+  "start": {
+    "hour": 19,
+    "minute": 0
+  },
+  "end": {
+    "hour": 19,
+    "minute": 14
+  },
+  "orders": [],
+  "hasClosed": false
+},{
+  "_id": {
+    "$oid": "5f213ff5308e0a11cd5f0274"
+  },
+  "start": {
+    "hour": 19,
+    "minute": 15
+  },
+  "end": {
+    "hour": 19,
+    "minute": 29
+  },
+  "orders": [],
+  "hasClosed": false
+},{
+  "_id": {
+    "$oid": "5f214005308e0a11cd5f0275"
+  },
+  "start": {
+    "hour": 19,
+    "minute": 30
+  },
+  "end": {
+    "hour": 19,
+    "minute": 44
+  },
+  "orders": [],
+  "hasClosed": false
+},{
+  "_id": {
+    "$oid": "5f214017308e0a11cd5f0276"
+  },
+  "start": {
+    "hour": 19,
+    "minute": 45
+  },
+  "end": {
+    "hour": 19,
+    "minute": 59
+  },
+  "orders": [],
+  "hasClosed": false
+},{
+  "_id": {
+    "$oid": "5f214028308e0a11cd5f0277"
+  },
+  "start": {
+    "hour": 20,
+    "minute": 0
+  },
+  "end": {
+    "hour": 20,
+    "minute": 14
+  },
+  "orders": [],
+  "hasClosed": false
+},{
+  "_id": {
+    "$oid": "5f21406c308e0a11cd5f0278"
+  },
+  "start": {
+    "hour": 20,
+    "minute": 15
+  },
+  "end": {
+    "hour": 20,
+    "minute": 29
+  },
+  "orders": [],
+  "hasClosed": false
+},{
+  "_id": {
+    "$oid": "5f21407b308e0a11cd5f0279"
+  },
+  "start": {
+    "hour": 20,
+    "minute": 30
+  },
+  "end": {
+    "hour": 20,
+    "minute": 44
+  },
+  "orders": [],
+  "hasClosed": false
+},{
+  "_id": {
+    "$oid": "5f214090308e0a11cd5f027a"
+  },
+  "start": {
+    "hour": 20,
+    "minute": 45
+  },
+  "end": {
+    "hour": 20,
+    "minute": 59
+  },
+  "orders": [],
+  "hasClosed": false
+}]

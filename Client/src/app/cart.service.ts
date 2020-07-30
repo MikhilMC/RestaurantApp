@@ -41,7 +41,7 @@ export class CartService {
     return this.http.get(this.getTimeTableUrl);
   }
 
-  checkOut(id, timeFrameId) {
-    return this.http.post(this.checkOutUrl + id, {timeFrameId});
+  checkOut(id, timeFrameId, cartItems) {
+    return this.http.post(this.checkOutUrl + id, {timeFrameId, cartItems});
   }
 }

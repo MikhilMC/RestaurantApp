@@ -38,7 +38,7 @@ export class CheckOutComponent implements OnInit {
     .subscribe(
       res => {
         this.cartItems = JSON.parse(JSON.stringify(res))
-        console.log(this.cartItems);
+        // console.log(this.cartItems);
         this.cartItems.forEach((item)=> {
           if (item.hasDiscount) {
             this.discount.push(Math.floor(100 - item.discountPercentage))
@@ -61,9 +61,9 @@ export class CheckOutComponent implements OnInit {
     .subscribe(
       res => {
         this.timeTable = JSON.parse(JSON.stringify(res))
-        console.log(this.timeTable);
+        // console.log(this.timeTable);
         this.createTimeTableStrings();
-        console.log(this.time);
+        // console.log(this.time);
       },
       err => {
         if (err instanceof HttpErrorResponse) {
@@ -109,12 +109,23 @@ export class CheckOutComponent implements OnInit {
   }
 
   checkOut() {
-    console.log(this.timeFrame)
-    console.log(this.cartItems);
-    console.log(this.totalCost);
-    this._cart.checkOut(this.userId, this.timeFrame)
+    // console.log(this.timeFrame)
+    // console.log(this.cartItems);
+    // console.log(this.totalCost);
+    let items = [];
+    this.cartItems.forEach((item) => {
+      items.push({
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price
+      })
+    });
+    this._cart.checkOut(this.userId, this.timeFrame, items)
     .subscribe(
-      res => console.log(res),
+      res => {
+        console.log(res);
+        this._router.navigate(['/todays-menu']);
+      },
       err => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401) {
