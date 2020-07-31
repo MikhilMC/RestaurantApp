@@ -14,6 +14,7 @@ export class SignupComponent implements OnInit {
   constructor(private _auth:AuthService,private _router: Router) { }
 
   ngOnInit(): void {
+    localStorage.removeItem('token');
   }
 
   signupUser() {
