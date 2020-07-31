@@ -1,1 +1,2 @@
 # RestaurantApp
+This is an app for online food ordering from a restaurant. Also a user can select appropriate time period to go and collect their order at the shop. Please note that this app is not for ~~online ordering along with delivery option~~ **yet**
