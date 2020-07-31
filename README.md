@@ -37,23 +37,39 @@ It is used for selecting an appropriate time frame for a user to come and pickup
 The database used here is **Restaurant**. The collections used are:
 
 * __userdatas__ for storing user information.
+
 * __fooditems__ for storing the information about the whole food items. (_This collection is not used for normal users_). This collection is completely managed by the admin users.
+
 * __todaymenuitems__ for storing information about today's menu. (_This collection is also managed by admin users._) When a normal user places an order, the server can add that quantity to the sold quantity field of this collection.
+
 * __cartdatas__ store all the food items which are stored in the cart. The users can access their cart items by user id.
+
 * __timetable__ for storing the time frame data. This database is manually created now. I am hoping that in near future, I can automate that process too, by creating the time frames by admins. Whenever a user places the order, that order id is pushed to the order field array of this collection.
+
 * __orderdata__ for storing data about whole orders.
 
 ## Todo List
 
 - [x] Login and Signup process along authentication and authorization.
+
 - [x] Displaying different types categories of food items. (i.e.) _complete menu_, _items with discounts_, _today's special items_, _veg items_.
+
 - [x] Displaying a single food item.
+
 - [x] Add an item to the cart
+
 - [x] Update the quantity of an item in the cart and remove that item from the cart.
+
 - [x] Clear the cart completely.
+
 - [x] Checkout the cart and select a suitable time frame for the user.
+
 - [ ] Implementing payment interface
+
 - [ ] Storing the images of the food items in the Mongo db using *GridFS*, and displaying those images  straight from the database.
+
 - [ ] If the ordering process have exceeded the shop closing time, then alert the user to continue order for the next available day.
+
 - [ ] If the item in the cart is not present in today's menu, then it should informed the user, and give the option for user to remove that item.
+
 - [ ] Displaying, cancelling and editing the orders.
