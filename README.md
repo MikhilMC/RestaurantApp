@@ -56,4 +56,4 @@ The database used here is **Restaurant**. The collections used are:
 - [ ] Storing the images of the food items in the Mongo db using *GridFS*, and displaying those images  straight from the database.
 - [ ] If the ordering process have exceeded the shop closing time, then alert the user to continue order for the next available day.
 - [ ] If the item in the cart is not present in today's menu, then it should informed the user, and give the option for user to remove that item.
-- [ ] Cancelling and editing the orders.
+- [ ] Displaying, cancelling and editing the orders.
