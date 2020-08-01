@@ -1,6 +1,6 @@
 # RestaurantApp
 
-This is a MEAN stack app for online food ordering from a restaurant. Also a user can select appropriate time period to go and collect their order at the shop. A single time frame is 15 minutes. Whenever a timeframe contains 15 orders, that timeframe is closed. Also when a time frame is exceeded, that timeframe also gets closed. Please note that this app is not for ~~online ordering along with delivery option.~~ **At least, not yet**. This web app is for the normal users only. The users with admin privilages can use another web app [RestaurantAppAdmin](https://github.com/MikhilMC/RestaurantAppAdmin). You have to use **RestaurantAppAdmin** first to add food items, and create today's menu by slecting from the complete food items list.
+This is a MEAN stack app for online food ordering from a restaurant. Also a user can select appropriate time period to go and collect their order at the shop. A single time frame is 15 minutes. Whenever a timeframe contains 15 orders, that timeframe is closed. Also when a time frame is exceeded, that timeframe also gets closed. Please note that this app is not for ~~online ordering along with delivery option.~~ **At least, not yet**. This web app is for the normal users only. The users with admin privilages can use another web app [RestaurantAppAdmin](https://github.com/MikhilMC/RestaurantAppAdmin). You have to use **RestaurantAppAdmin** first to add food items, and create today's menu by slecting from the complete food items list. Only then you can use this web app properly.
 
 ## Used Technologies
 
