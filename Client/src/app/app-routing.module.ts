@@ -14,6 +14,11 @@ import { EditCartComponent } from './edit-cart/edit-cart.component';
 import { CheckOutComponent } from './check-out/check-out.component';
 
 const routes: Routes = [
+  { 
+    path: "",
+    redirectTo: "/login",
+    pathMatch: "full"
+  },
   {
     path: "todays-menu",
     component: TodaysMenuComponent,
