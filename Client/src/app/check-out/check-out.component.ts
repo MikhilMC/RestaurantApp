@@ -39,7 +39,22 @@ export class CheckOutComponent implements OnInit {
       res => {
         this.cartItems = JSON.parse(JSON.stringify(res))
         // console.log(this.cartItems);
-        this.createTimeTableStrings()
+        this._cart.getTimeTable()
+        .subscribe(
+          res => {
+            this.timeTable = JSON.parse(JSON.stringify(res))
+            // console.log(this.timeTable);
+            this.createTimeTableStrings();
+            // console.log(this.time);
+          },
+          err => {
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 401) {
+                this._auth.logoutUser();
+              }
+            }
+          }
+        )        
         this.cartItems.forEach((item)=> {
           if (item.hasDiscount) {
             this.discount.push(Math.floor(100 - item.discountPercentage))
@@ -58,22 +73,7 @@ export class CheckOutComponent implements OnInit {
       }
     );
 
-    this._cart.getTimeTable()
-    .subscribe(
-      res => {
-        this.timeTable = JSON.parse(JSON.stringify(res))
-        // console.log(this.timeTable);
-        this.createTimeTableStrings();
-        // console.log(this.time);
-      },
-      err => {
-        if (err instanceof HttpErrorResponse) {
-          if (err.status === 401) {
-            this._auth.logoutUser();
-          }
-        }
-      }
-    )
+    
   }
 
   createTimeTableStrings() {
