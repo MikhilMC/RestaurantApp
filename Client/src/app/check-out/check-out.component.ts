@@ -39,6 +39,7 @@ export class CheckOutComponent implements OnInit {
       res => {
         this.cartItems = JSON.parse(JSON.stringify(res))
         // console.log(this.cartItems);
+        this.createTimeTableStrings()
         this.cartItems.forEach((item)=> {
           if (item.hasDiscount) {
             this.discount.push(Math.floor(100 - item.discountPercentage))

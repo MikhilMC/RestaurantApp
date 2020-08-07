@@ -32,11 +32,11 @@ export class CartComponent implements OnInit {
     });
     this._cart.getCart(this.userId)
     .subscribe(
-      async res => {
+      res => {
         if (res['msg'] !== undefined) {
           this.hasAny = false
         } else {
-          await this.loadCart(res)
+          this.loadCart(res)
         }
       },
       err => {
